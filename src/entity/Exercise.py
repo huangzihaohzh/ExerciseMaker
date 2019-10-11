@@ -1,4 +1,3 @@
-import numpy
 import random
 import fractions
 import re

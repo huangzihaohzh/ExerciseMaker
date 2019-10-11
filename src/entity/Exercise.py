@@ -1,6 +1,7 @@
 import numpy
 import random
 import fractions
+import re
 # 题目类
 # 用于生成存储题目、答案
 
@@ -8,6 +9,7 @@ import fractions
 class Exercise:
     exerciseStr = ""
     answerStr = ""
+    givenAnswerStr = ""
     range = 10
 
     # 构造函数
@@ -37,6 +39,7 @@ class Exercise:
         self.range = range
         exerciseList = []
         i = 1
+        #生成num道题目
         while i <= num:
             exercise = Exercise()
             exercise.makeExercise()
@@ -46,8 +49,33 @@ class Exercise:
 
 
     # 按给定的题目字符串
-    def makeExerciseByStr(self,exeStr,ansStr):
-        pass
+    def makeExerciseByStr(self,exeStr = "",ansStr = ""):
+        self.givenAnswerStr = ansStr
+        exeStrTemp = exeStr[:]
+        exeFigureList = []
+        opCodeList = []
+        codeRegx = '[-*/÷\+]'
+        figureRegx = '[0-9]'
+        #根据运算符进行划分，并将划分出的数字字符串转为数字存入exeFigureList
+        exeFigureStrList = re.split(codeRegx,exeStr)
+        for figureStr in exeFigureStrList:
+            exeFigureList.append(int(figureStr))
+        #根据数字进行划分，提取运算符并存入opCodeList
+        opCodeListTemp = re.split(figureRegx,exeStr)
+        for opCode in opCodeListTemp:
+            if(opCode == "+"):
+                opCodeList.append(0)
+            if (opCode == "-"):
+                opCodeList.append(1)
+            if (opCode == "*"):
+                opCodeList.append(2)
+            if (opCode == "÷"):
+                opCodeList.append(3)
+            if (opCode == "/"):
+                opCodeList.append(4)
+        self.fourOp(exeFigureList,opCodeList)
+        return
+
 
     # 以字符串的形式返回题目
     def getExerciseStr(self):
@@ -82,6 +110,8 @@ class Exercise:
                         # 从运算数临时列表中删掉两个操作数中的后者
                         del opFigureTempList[codeIndex]
                         opFigureTempList[codeIndex - 1] = figure1 * figure2
+                        del opCodeTempList[codeIndex - 1]
+                        break
                     # 若为除法或分数
                     if (opCode == 3 or opCode == 4):
                         figure1 = opFigureTempList[codeIndex - 1]
@@ -92,11 +122,15 @@ class Exercise:
                         else:
                             answer = None
                             return
+                        del opCodeTempList[codeIndex - 1]
+                        break
+                    codeIndex += 1
                     # 从运算符临时列表中删除已经进行运算的运算符
-                    del opCodeTempList[codeIndex - 1]
-                    break
+                    #del opCodeTempList[codeIndex - 1]
+                    #break
             else:
                 # opcodeTempList不包含乘除法或做完乘除法后,做加减法
+                codeIndex = 1
                 for opCode in opCodeTempList:
                     # 从运算数临时列表中取出两个操作数
                     figure1 = opFigureTempList[codeIndex - 1]
@@ -106,12 +140,16 @@ class Exercise:
                     # 若为加法
                     if (opCode == 0):
                         opFigureTempList[codeIndex - 1] = figure1 + figure2
+                        del opCodeTempList[codeIndex - 1]
+                        break
                     # 若为减法
                     if (opCode == 1):
                         opFigureTempList[codeIndex - 1] = figure1 - figure2
+                        del opCodeTempList[codeIndex - 1]
+                        break
                     # 从运算符临时列表中删除已经进行运算的运算符
-                    del opCodeTempList[codeIndex - 1]
-                    break
+                    #del opCodeTempList[codeIndex - 1]
+                    #break
             i += 1
         answer = opFigureTempList[0]
         # 生成练习字符串

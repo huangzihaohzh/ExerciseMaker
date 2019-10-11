@@ -4,6 +4,7 @@ import sys
 from os import path
 from PyQt5.QtWidgets import QMessageBox
 
+
 class Gui(QWidget):
     def __init__(self):
         super().__init__()

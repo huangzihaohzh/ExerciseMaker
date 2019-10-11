@@ -85,6 +85,8 @@ class Exercise:
     def getAnswerStr(self):
         return self.answerStr
 
+    def getAnswerNum(self):
+        return fractions.Fraction(self.answerStr)
     """
     四则运算函数
     参数：opFigureList    包含参与运算的数的列表

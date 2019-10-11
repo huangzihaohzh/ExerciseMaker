@@ -87,6 +87,12 @@ class Exercise:
 
     def getAnswerNum(self):
         return fractions.Fraction(self.answerStr)
+
+    def isRight(self):
+        if(float(fractions.Fraction(self.givenAnswerStr)) == float(fractions.Fraction(self.answerStr))):
+            return True
+        else:
+            return False
     """
     四则运算函数
     参数：opFigureList    包含参与运算的数的列表

@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 from os import path
 
+
 def parse_input():
     parser = ArgumentParser(description="Input relevant parameters to generate four primary school operation problems, default is 10.")
     parser.add_argument('-n', '--number', type=int, help="Control the number of generated questions, default is 10.")
@@ -9,6 +10,7 @@ def parse_input():
     parser.add_argument('-a', '--answer', type=str, help="Given answer file, for two files, make a number of statistics")
     args = parser.parse_args()
     return args
+
 
 class Command:
     def __init__(self, input_args):

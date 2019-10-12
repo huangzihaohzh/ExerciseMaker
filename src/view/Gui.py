@@ -66,7 +66,7 @@ class Gui(QWidget):
                         exerciseRange = int(self.text_range.text())
                         exerciseMaker = Exercise.Exercise()
                         exerciseList = exerciseMaker.makeExerciseWithNumAndRange(exerciseNum, exerciseRange)
-                        outputText = ""
+                        outputText = ""    #存储需要显示的字符串
                         for exercise in exerciseList:
                             outputText += "Exercise:" + exercise.getExerciseStr() + "    Answer:" + exercise.getAnswerStr() + "\n"
                         self.textbox.setText(outputText)

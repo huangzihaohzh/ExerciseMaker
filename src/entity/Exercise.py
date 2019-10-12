@@ -42,6 +42,7 @@ class Exercise:
         while i <= num:
             exercise = Exercise()
             exercise.makeExercise()
+            print(exercise.getExerciseStr())    #test
             exerciseList.append(exercise)
             i += 1
         return exerciseList
@@ -177,4 +178,9 @@ class Exercise:
             opCodeIndex += 1
         # 生成答案字符串
         self.answerStr = str(fractions.Fraction(answer))
+        ##### test begin
+        if(self.answerStr == "" or self.exerciseStr == ""):
+            print("###############\n")
+            print("#    EMPTY    #")
+            print("###############\n")
         return answer

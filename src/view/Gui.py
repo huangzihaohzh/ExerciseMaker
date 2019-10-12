@@ -3,6 +3,7 @@ from PyQt5.QtCore import *
 import sys
 from os import path
 from PyQt5.QtWidgets import QMessageBox
+from entity import Exercise
 
 
 class Gui(QWidget):
@@ -59,11 +60,20 @@ class Gui(QWidget):
         if self.text_num.text():
             if self.text_range.text():
                 try:
-                    if (int(self.text_num.text())>0) & (int(self.text_range.text())>0):
-                        pass
+                    if (int(self.text_num.text()) > 0) & (int(self.text_range.text()) > 0):
+                        # 生成练习列表，并自GUI中输出
+                        exerciseNum = int(self.text_num.text())
+                        exerciseRange = int(self.text_range.text())
+                        exerciseMaker = Exercise.Exercise()
+                        exerciseList = exerciseMaker.makeExerciseWithNumAndRange(exerciseNum, exerciseRange)
+                        outputText = ""
+                        for exercise in exerciseList:
+                            outputText += "Exercise:" + exercise.getExerciseStr() + "    Answer:" + exercise.getAnswerStr() + "\n"
+                        self.textbox.setText(outputText)
                     else:
                         QMessageBox.information(self, "提示", "请输入大于0的数字。", QMessageBox.Ok)
-                except:
+
+                except ():
                     QMessageBox.information(self, "提示", "请输入符合要求的数字。", QMessageBox.Ok)
             else:
                 QMessageBox.information(self, "提示", "请输入题目数值范围。", QMessageBox.Ok)

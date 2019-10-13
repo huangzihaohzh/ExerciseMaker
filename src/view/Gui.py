@@ -4,6 +4,7 @@ import sys
 from os import path
 from PyQt5.QtWidgets import QMessageBox
 from entity import Exercise
+from controller import Controller
 
 class Gui(QWidget):
     def __init__(self):
@@ -69,6 +70,8 @@ class Gui(QWidget):
                         for exercise in exerciseList:
                             outputText += "Exercise:" + exercise.getExerciseStr() + "    Answer:" + exercise.getAnswerStr() + "\n"
                         self.textbox.setText(outputText)
+                        #保存题目到文件
+                        Controller.Controller().writeExerciseAndAnswerFile(exerciseList)
                     else:
                         QMessageBox.information(self, "提示", "请输入大于0的数字。", QMessageBox.Ok)
 

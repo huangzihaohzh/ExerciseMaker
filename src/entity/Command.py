@@ -19,6 +19,7 @@ class Command:
         self.exerciseRange = 10  # 存放题目中自然数、真分数、真分数分母的取值范围，默认为10
         self.exerciseFile = ""  # 指向用户输入的已存在的题目文档，默认为null
         self.answerFile = ""  # 指向用户输入的已存在的答案文档，默认为null
+        self.command()
 
     def command(self):
         """

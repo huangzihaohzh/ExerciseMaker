@@ -3,15 +3,17 @@ import sys
 from entity import Exercise
 from entity import Command
 from view import Gui
+import os
 
 class Controller:
 
-    def __init__(self,args,userInput):
-        self.args = args
-        self.userInput = userInput
+    def __init__(self):
+        pass
 
     # 根据用户输入来控制流程
-    def controller(self):
+    def controller(self,args,userInput):
+        self.args = args
+        self.userInput = userInput
         # 判断用户输入是否为空，若为空则转到GUI界面，否则处理用户输入的命令
         if(len(self.userInput) == 1):
             app = QApplication(sys.argv)
@@ -19,6 +21,7 @@ class Controller:
             sys.exit(app.exec_())
         else:
             command = Command.Command(self.args)
+            #command.command()
             # 根据用户输入的参数的不同实现不同功能
             # 用户没有指定读取的文件时
             if(command.getExerciseFile() == "" or command.getAnswerFile() == ""):
@@ -30,6 +33,9 @@ class Controller:
                 for exercise in exerciseList:
                     outputText += "Exercise:" + exercise.getExerciseStr() + "    Answer:" + exercise.getAnswerStr() + "\n"
                 print(outputText)
+                # 保存题目到文件
+                self.writeExerciseAndAnswerFile(exerciseList)
+
 
 
 
@@ -42,14 +48,20 @@ class Controller:
     def readExerciseAndAnswerFile(self):
         pass
 
-    def writeExerciseAndAnswerFile(self):
+    def writeExerciseAndAnswerFile(self,exerciseList = []):
         # 检查文件是否存在，若不存在则创建
+        exerciseFile = open(r"./Exercise.txt",'a',encoding='utf8')
+        answerFile = open(r"./Answer.txt",'a')
+        # 以追加的方式写入文件
+        i = 1
+        for exercise in exerciseList:
+            exerciseFile.write(str(i)+"."+exercise.getExerciseStr()+'\n')
+            answerFile.write(str(i)+"."+exercise.getAnswerStr()+'\n')
+            i += 1
 
-        #获取题目列表，
-        pass
 
 if __name__ == "__main__":
     print(sys.argv)    # test
-    con = Controller(Command.parse_input(),sys.argv)
-    con.controller()
+    con = Controller()
+    con.controller(Command.parse_input(),sys.argv)
 

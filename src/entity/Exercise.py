@@ -31,7 +31,8 @@ class Exercise:
         while i <= operationCodeNum:
             operationCodeList.append(random.randint(0, 4))
             i += 1
-        self.fourOp(operatingFigureList,operationCodeList)
+        if(not self.fourOp(operatingFigureList,operationCodeList)):
+            self.makeExercise()
 
     # 按给定的range和num生成num道题目
     def makeExerciseWithNumAndRange(self,num,range):
@@ -42,7 +43,7 @@ class Exercise:
         while i <= num:
             exercise = Exercise()
             exercise.makeExercise()
-            print(exercise.getExerciseStr())    #test
+            #print(exercise.getExerciseStr())    #test
             exerciseList.append(exercise)
             i += 1
         return exerciseList
@@ -128,8 +129,7 @@ class Exercise:
                         if(figure2 != 0):
                             opFigureTempList[codeIndex - 1] = figure1 / figure2
                         else:
-                            answer = None
-                            return
+                            return False
                         del opCodeTempList[codeIndex - 1]
                         break
                     codeIndex += 1
@@ -179,8 +179,9 @@ class Exercise:
         # 生成答案字符串
         self.answerStr = str(fractions.Fraction(answer))
         ##### test begin
+        print(self.exerciseStr)
         if(self.answerStr == "" or self.exerciseStr == ""):
             print("###############\n")
             print("#    EMPTY    #")
             print("###############\n")
-        return answer
+        return True

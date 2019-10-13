@@ -6,14 +6,15 @@ import re
 
 
 class Exercise:
-    exerciseStr = ""
-    answerStr = ""
-    givenAnswerStr = ""
-    range = 10
+
 
     # 构造函数
     def __init__(self):
-        pass
+        super().__init__()
+        self.exerciseStr = ""
+        self.answerStr = ""
+        self.givenAnswerStr = ""
+        self.range = 10
 
     # 按range生成一道题目
     def makeExercise(self):
@@ -36,7 +37,7 @@ class Exercise:
 
     # 按给定的range和num生成num道题目
     def makeExerciseWithNumAndRange(self,num,range):
-        self.range = range
+        self.range = int(range)
         exerciseList = []
         i = 1
         #生成num道题目
@@ -179,9 +180,11 @@ class Exercise:
         # 生成答案字符串
         self.answerStr = str(fractions.Fraction(answer))
         ##### test begin
+        """
         print(self.exerciseStr)
         if(self.answerStr == "" or self.exerciseStr == ""):
             print("###############\n")
             print("#    EMPTY    #")
             print("###############\n")
+        """
         return True

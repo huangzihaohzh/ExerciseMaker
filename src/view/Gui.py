@@ -102,7 +102,31 @@ class Gui(QWidget):
         if self.text_exercise.text():
             if self.text_answer.text():
                 if (path.exists(self.text_exercise.text())) & (path.exists(self.text_answer.text())):
-                    pass
+                    # 给定文件判断结果
+                    # 获取判断结果列表
+                    controller = Controller.Controller()
+                    resultList = controller.readExerciseAndAnswerFile(self.text_exercise.text(),self.text_answer.text())
+                    # 构造正确结果输出字符串
+                    correctResultStr = "Correct:" + str(len(resultList[0])) + "("
+                    i = 0
+                    while i < len(resultList[0]):
+                        correctResultStr = correctResultStr + str(resultList[0][i])
+                        if i < len(resultList[0]) - 1:
+                            correctResultStr += ','
+                        i += 1
+                    correctResultStr += ')\n'
+
+                    # 构造错误结果输出字符串
+                    wrongResultStr = "Wrong:" + str(len(resultList[1])) + "("
+                    i = 0
+                    while i < len(resultList[1]):
+                        wrongResultStr = wrongResultStr + str(resultList[1][i])
+                        if i < len(resultList[1]) - 1:
+                            wrongResultStr += ','
+                        i += 1
+                    wrongResultStr += ')\n'
+                    #显示
+                    self.textbox.setText(correctResultStr + wrongResultStr)
                 else:
                     QMessageBox.information(self, "提示", "请输入合法的文件路径。", QMessageBox.Ok)
             else:

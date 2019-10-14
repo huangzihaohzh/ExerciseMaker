@@ -6,11 +6,13 @@ import re
 
 
 class Exercise:
-
+    exerciseStr = ""
+    answerStr = ""
+    givenAnswerStr = ""
+    range
 
     # 构造函数
     def __init__(self):
-        super().__init__()
         self.exerciseStr = ""
         self.answerStr = ""
         self.givenAnswerStr = ""
@@ -37,12 +39,13 @@ class Exercise:
 
     # 按给定的range和num生成num道题目
     def makeExerciseWithNumAndRange(self,num,range):
-        self.range = int(range)
+        # self.range = int(range)
         exerciseList = []
         i = 1
         #生成num道题目
         while i <= num:
             exercise = Exercise()
+            exercise.setRange(range)
             exercise.makeExercise()
             #print(exercise.getExerciseStr())    #test
             exerciseList.append(exercise)
@@ -78,7 +81,8 @@ class Exercise:
         self.fourOp(exeFigureList,opCodeList)
         return
 
-
+    def setRange(self,range):
+        self.range = range
     # 以字符串的形式返回题目
     def getExerciseStr(self):
         return self.exerciseStr

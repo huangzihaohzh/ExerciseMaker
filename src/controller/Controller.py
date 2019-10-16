@@ -4,6 +4,9 @@ from entity import Exercise
 from entity import Command
 from view import Gui
 import os
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = os.path.split(curPath)[0]
+sys.path.append(os.path.split(rootPath)[0])
 
 class Controller:
 
@@ -103,7 +106,7 @@ class Controller:
     def writeExerciseAndAnswerFile(self,exerciseList = []):
         # 检查文件是否存在，若不存在则创建
         exerciseFile = open(r"./Exercise.txt",'a',encoding='utf8')
-        answerFile = open(r"./Answer.txt",'a')
+        answerFile = open(r"./Answer.txt",'a',encoding='utf8')
         # 以追加的方式写入文件
         i = 1
         for exercise in exerciseList:

@@ -1,6 +1,10 @@
 from argparse import ArgumentParser
 from os import path
-
+import os
+import sys
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = os.path.split(curPath)[0]
+sys.path.append(os.path.split(rootPath)[0])
 
 def parse_input():
     parser = ArgumentParser(description="Input relevant parameters to generate four primary school operation problems, default is 10.")

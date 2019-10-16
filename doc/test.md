@@ -238,7 +238,7 @@
 ## 四、设计实现过程
 ### 主要的类
 
-* Main类：包含main()方法与程序启动入口
+* Controller类：包含逻辑控制与程序启动入口
 
 * Command类：根据用户输入生成，保存用户选择的参数与参数值（包括参数的默认值）
 
@@ -248,16 +248,24 @@
 
 ### 各类的方法
 
-![UML](ClassUML.jpg)
+![UML](ClassUML2.jpg)
 
-#### Main类
+#### Controller类
 
 ##### 方法
 
-* main(String [])
+* controller(str args,str userInput)
     * 输入：用户输入的参数
     * 返回：无返回
-    * 须实现的功能：控制程序运行的流程
+    * 实现功能：控制程序运行的流程
+* readExerciseAndAnswerFile(str exerciseFilePath,stranswerFilePath)
+    * 输入：字符串型的题目文件和答案文件路径
+    * 返回：包含正确题号列表和错误题号列表的列表
+    * 实现功能：读取题目和答案文件并判断对错
+* writeExerciseAndAnswerFile(exerciseList)
+    * 输入：题目列表
+    * 返回：无
+    * 实现功能：将题目列表中的题目以一定格式写入到文件中
 
 #### Command类
 
@@ -309,23 +317,21 @@
 
 ##### 方法
 
-* Exercise()
+* makeExercise()
     * public
     * 输入：void
     * 输出：void
     * 根据默认的range生成一条题目
-* Exercise(String aExercise,String aAnswer)
+* makeExerciseWithNumAndRange(num,range)
     * public
-    * 输入：
-        * String aExercise 字符串类型的题目
-        * String aAnswer 字符串类型的答案
+    * 输入：整型的题目数量num和题目操作数最大值range
     * 输出：void
-    * 根据aExercise、aAnswer来生成一条题目
-* Exercise(int aRange)
+    * 根据题目操作数最大值range生成num条题目
+* makeExerciseByStr(exeStr,ansStr)
     * public
-    * 输入：int aRange 给定题目中自然数、真分数、真分数分母的取值范围
+    * 输入：题目字符串和答案字符串
     * 输出：void
-    * 根据默认的aRange生成一条题目
+    * 根据题目字符串和答案字符串生成一条题目
 * getExerciseStr()
     * public
     * 输入：void
@@ -346,6 +352,21 @@
     * 输入：void
     * 输出：boolean
     * 判断题目与答案是否相等
+* setRange(range)
+    * public
+    * 输入：整型题目操作数最大值range
+    * 输出：无
+    * 设置题目操作数最大值range
+* fourOp()
+    * public
+    * 输入：无
+    * 输出：无
+    * 对题目进行四则运算
+* solver(exStr)
+    * public
+    * 输入：题目字符串
+    * 输出：无
+    * 对给定的题目字符串进行求解
 
 #### Gui类
 ##### 方法
@@ -382,9 +403,9 @@
 ## 五、代码说明
 ### 主要的类
 
-* Main类：包含main()方法与程序启动入口
+* Controller类：程序流程控制与程序启动入口
 ```
-
+源码太长，故省略
 ```
 
 * Command类：根据用户输入生成，保存用户选择的参数与参数值（包括参数的默认值）
@@ -479,7 +500,7 @@ if __name__ == '__main__':
 ```
 * Exercise类：题目类，包含题目与题目的方法，每一个Exercise类的示例对应一道题目
 ```
-
+源码太长，故省略
 ```
 * Gui类: 可视化界面代码
 ```
@@ -626,6 +647,16 @@ if __name__ == '__main__':
 ```
 
 ## 六、测试运行
+### 通过GUI运行
+#### 题目生成功能
+![test](gui-test-1.PNG)
+#### 题目检查功能
+![test](gui-test-2.PNG)
+### 通过命令行运行
+#### 题目生成功能
+![test](shell-test-1.PNG)
+#### 题目检查功能
+![test](shell-test-2.PNG)
 
 ## 七、项目小结
 

@@ -3,7 +3,8 @@ from PyQt5.QtCore import *
 import sys
 from os import path
 from PyQt5.QtWidgets import QMessageBox
-from entity import Exercise
+from src.entity import Exercise
+
 
 class Gui(QWidget):
     def __init__(self):
@@ -11,6 +12,11 @@ class Gui(QWidget):
         self.initUI()
 
     def initUI(self):
+        """
+        输入：void
+        输出：void
+        实现功能：设置参数
+        """
         # 设置窗口
         self.setGeometry(800, 300, 570, 480)
         self.setFixedSize(self.width(), self.height())
@@ -56,6 +62,11 @@ class Gui(QWidget):
         self.show()
 
     def generate_exercise(self):
+        """
+        输入：void
+        输出：void
+        实现功能：“生成题目”按钮事件处理
+        """
         if self.text_num.text():
             if self.text_range.text():
                 try:
@@ -71,7 +82,6 @@ class Gui(QWidget):
                         self.textbox.setText(outputText)
                     else:
                         QMessageBox.information(self, "提示", "请输入大于0的数字。", QMessageBox.Ok)
-
                 except ():
                     QMessageBox.information(self, "提示", "请输入符合要求的数字。", QMessageBox.Ok)
             else:
@@ -80,6 +90,11 @@ class Gui(QWidget):
             QMessageBox.information(self, "提示", "请输入题目数量。", QMessageBox.Ok)
 
     def choose_exercise(self):
+        """
+        输入：void
+        输出：void
+        实现功能：“选择题目文件”按钮事件处理
+        """
         self.files, files_type = QFileDialog.getOpenFileNames()
         if len(self.files) > 0:
             if len(self.files) == 1:
@@ -88,6 +103,11 @@ class Gui(QWidget):
                 QMessageBox.information(self, "提示", "请只选择一个文件。", QMessageBox.Ok)
 
     def choose_answer(self):
+        """
+        输入：void
+        输出：void
+        实现功能：“选择答案文件”按钮事件处理
+        """
         self.files, files_type = QFileDialog.getOpenFileNames()
         if len(self.files) > 0:
             if len(self.files) == 1:
@@ -96,6 +116,11 @@ class Gui(QWidget):
                 QMessageBox.information(self, "提示", "请只选择一个文件。", QMessageBox.Ok)
 
     def judge(self):
+        """
+        输入：void
+        输出：void
+        实现功能：“判断”按钮事件处理
+        """
         if self.text_exercise.text():
             if self.text_answer.text():
                 if (path.exists(self.text_exercise.text())) & (path.exists(self.text_answer.text())):
@@ -108,6 +133,8 @@ class Gui(QWidget):
             QMessageBox.information(self, "提示", "请选择题目文件。", QMessageBox.Ok)
 
 
+
+# 测试
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Gui()

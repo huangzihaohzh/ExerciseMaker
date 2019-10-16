@@ -6,6 +6,16 @@ curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
 sys.path.append(os.path.split(rootPath)[0])
 
+def parse_input():
+    parser = ArgumentParser(description="Input relevant parameters to generate four primary school operation problems, default is 10.")
+    parser.add_argument('-n', '--number', type=int, help="Control the number of generated questions, default is 10.")
+    parser.add_argument('-r', '--range', type=int, help="Controls the range of values (natural Numbers, true fractions, and true fraction denominators).")
+    parser.add_argument('-e', '--exercise', type=str, help="Given exercise file.")
+    parser.add_argument('-a', '--answer', type=str, help="Given answer file, for two files, make a number of statistics")
+    args = parser.parse_args()
+    return args
+
+
 class Command:
     def __init__(self, input_args):
         self.args = input_args  # 存放来自用户的输入
@@ -23,12 +33,12 @@ class Command:
         """
         if self.args.number:
             if self.args.number <= 0:
-                print("参数出错, 请检查参数")
+                print(1)
             else:
                 self.exerciseNum = self.args.number
         if self.args.range:
             if self.args.range <= 0:
-                print("参数出错, 请检查参数")
+                print(2)
             else:
                 self.exerciseRange = self.args.range
         if self.args.exercise:
@@ -36,15 +46,15 @@ class Command:
                 if path.exists(self.args.exercise):
                     self.exerciseFile = self.args.exercise
                 else:
-                    print("参数出错, 请检查参数")
+                    print(3)
                 if path.exists(self.args.answer):
                     self.answerFile = self.args.answer
                 else:
-                    print("参数出错, 请检查参数")
+                    print(4)
             else:
-                print("参数出错, 请检查参数")
+                print(5)
         elif self.args.answer:
-            print("参数出错, 请检查参数")
+            print(6)
 
 
     def getExerciseNum(self):
@@ -79,12 +89,10 @@ class Command:
         """
         return self.answerFile
 
-
-
-# 测试
 if __name__ == '__main__':
     args = parse_input()
     com = Command(args)
+    com.command()
     print("exercise num:", com.getExerciseNum())
     print("exercise range:", com.getExerciseRange())
     print("exercise file:", com.getExerciseFile())
